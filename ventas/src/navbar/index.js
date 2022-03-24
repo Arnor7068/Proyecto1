@@ -15,12 +15,12 @@ const Navbar = () => {
     }
 
     return (
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 {user?.email ? user.email : 'Iniciar sesión'}
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><div class="dropdown-item" onClick={logOut}>Cerrar Sesión</div></li>
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><div className="dropdown-item" onClick={logOut}>Cerrar Sesión</div></li>
             </ul>
         </div>
     )
