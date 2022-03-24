@@ -2,14 +2,14 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCuII5NNFu4P-pc2iXpLV_UHGyTF4Rj_tc",
-    authDomain: "hiffel.firebaseapp.com",
-    databaseURL: "https://hiffel.firebaseio.com",
-    projectId: "hiffel",
-    storageBucket: "hiffel.appspot.com",
-    messagingSenderId: "518837504424",
-    appId: "1:518837504424:web:48b88a504a6c5adbb0f59d"
-  };
+  apiKey: "AIzaSyDpn0pIjdeSPTv7BkqnyrdoYL9QQ9myeyw",
+  authDomain: "ventas-de412.firebaseapp.com",
+  projectId: "ventas-de412",
+  storageBucket: "ventas-de412.appspot.com",
+  messagingSenderId: "957550646788",
+  appId: "1:957550646788:web:868c56c4d57a2101c60751",
+  measurementId: "G-PYD8CWH0JR"
+};
 
   const app = initializeApp(firebaseConfig);
 
