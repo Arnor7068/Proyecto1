@@ -1,11 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './login.css'
+import { auth } from '../firebase-config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import  { Redirect } from 'react-router-dom';
 
 const Login = () => {
+
+   const [loginEmail, setLoginEmail] = useState("");
+   const [loginPassword, setLoginPassword] = useState("");
+
     const handleClick = () => {
         console.log('this is:', this);
         
       }
+
+    const login = async () => {
+        try {
+            const user = await signInWithEmailAndPassword (
+               auth,
+               loginEmail,
+               loginPassword
+            );
+            console.log(user);
+            window.location = '/usuario';
+        } catch (error) {
+            console.log(error.message);
+        }       
+      }
+
     return (
         <div className='cuerpo'>
         <div className="container">
@@ -18,20 +40,39 @@ const Login = () => {
 							<h1>Login</h1>
 						 </div>
 					</div>
-                   <form name="login">
                            <div className="form-group">
                               <label className='mb-1' htmlFor="exampleInputEmail1">Email address</label>
-                              <input type="email" name="email"  className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" /> 
+                              <input 
+                                 type="email" 
+                                 name="email" 
+                                 className="form-control" 
+                                 id="email" 
+                                 aria-describedby="emailHelp" 
+                                 placeholder="Enter email" 
+                                 onChange={(event) => {
+                                    setLoginEmail(event.target.value);
+                                 }}
+                                 /> 
                            </div>
                            <div className="form-group">
                               <label className='mt-3 mb-1 ' htmlFor="exampleInputEmail1">Password</label>
-                              <input type="password" name="password" id="password"  className="form-control" aria-describedby="emailHelp" placeholder="Enter Password" />
+                              <input 
+                                 type="password" 
+                                 name="password" 
+                                 id="password"  
+                                 className="form-control" 
+                                 aria-describedby="emailHelp" 
+                                 placeholder="Enter Password" 
+                                 onChange={(event) => {
+                                    setLoginPassword(event.target.value);
+                                 }}
+                                 />
                            </div>
                            <div className="form-group">
                               <p className="text-center">By signing up you accept our <a href="#">Terms Of Use</a></p>
                            </div>
                            <div className="col-md-12 text-center ">
-                              <button onClick={() => handleClick()}  type="submit" className=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+                              <button onClick={login}  type="submit" className=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
                              
 
                            </div>
@@ -51,7 +92,6 @@ const Login = () => {
                            <div className="form-group">
                               <p className="text-center">Don't have account? <a href="#" id="signup">Sign up here</a></p>
                            </div>
-                        </form>
                  
 				</div>
 			</div>
