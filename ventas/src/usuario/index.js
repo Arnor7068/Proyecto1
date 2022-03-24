@@ -5,15 +5,20 @@ const Usuario = () => {
 
     const [products, setProducts] = useState([]);
 
+    useEffect(() => {
+        getProducts();
+    },[]);
+
     const getProducts = async () => {
         const data = await ProductDataServices.getAllProducts();
         console.log(data.docs);
         setProducts(data.docs.map((doc) =>({ ...doc.data(), id: doc.id })))
     }
 
-    useEffect(() => {
+    const deleteHandler = async (id) => {
+        await ProductDataServices.deleteProduct(id);
         getProducts();
-    },[]);
+    }
 
     return (
         <div>
@@ -30,11 +35,13 @@ const Usuario = () => {
                                         <span>{item.precio} bs</span>
                                         <button
                                             className="btn btn-danger btn-sm float-right"
+                                            onClick={(e) => deleteHandler(item.id)}
                                         >
                                             Eliminar
                                         </button>
                                         <button
                                             className="btn btn-warning btn-sm float-right mr-2"
+                                            /* onClick={(e) => getProductId(item.id)} */
                                         >
                                             Editar
                                         </button>
