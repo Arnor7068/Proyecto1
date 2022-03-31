@@ -1,42 +1,42 @@
 import React, { useEffect, useState } from 'react'
-import Edit from '../edit';
-import ProductDataServices from '../services/productServices'
+import EditClient from '../editClient'
+import ClientDataServices from '../services/ClientDataServices'
 import Modal from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button';
-import Add from '../add';
+import AddClient from '../AddClient';
 
-const Usuario = () => {
+const Cliente = () => {
 
-    const [products, setProducts] = useState([]);
+    const [Clients, setClients] = useState([]);
 
     const [show, setShow] = useState(false);
-
     const [nombre, setNombre] = useState("");
-    const [precio, setPrecio] = useState("");
-    const [descrip, setDescrip] = useState("");
+    const [apellido, setApellido] = useState("");
+    const [celular, setCelular] = useState("");
     const [id, setId] = useState("");
 
-    const handleModal = (idx, name, price, desc) => {
+
+    const handleModal = (idx, name, last, cel) => {
         setShow(!show);
         setId(idx);
         setNombre(name);
-        setPrecio(price);
-        setDescrip(desc);
+        setApellido(last);
+        setCelular(cel);
     }
 
     useEffect(() => {
-        getProducts();
-    }, []);
+        getClients();
+    },[]);
 
-    const getProducts = async () => {
-        const data = await ProductDataServices.getAllProducts();
+    const getClients = async () => {
+        const data = await ClientDataServices.getAllClients();
         console.log(data.docs);
-        setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+        setClients(data.docs.map((doc) =>({ ...doc.data(), id: doc.id })))
     }
 
     const deleteHandler = async (id) => {
-        await ProductDataServices.deleteProduct(id);
-        getProducts();
+        await ClientDataServices.deleteClient(id);
+        getClients();
     }
 
     return (
@@ -44,19 +44,17 @@ const Usuario = () => {
             <div className="container mb-2">
                 <div className="row">
                     <div className="col-md-6">
-                        <h3>Lista de Productos</h3>
+                        <h3>Lista de Clientes</h3>
                         <ul className="list-group">
                             {
-                                products.map(item => (
+                                Clients.map(item => (
                                     <li className="list-group-item" key={item.id}>
                                         <strong>Nombre: </strong>
                                         <span>{item.nombre}</span>
-                                        <br />
-                                        <strong>Precio: </strong>
-                                        <span>{item.precio}</span>
-                                        <br />
-                                        <strong>Descripción: </strong>
-                                        <span>{item.descrip}</span>
+                                        {' '}
+                                        <span>{item.apellido} </span> <br />
+                                        <strong>Celular: </strong>
+                                        <span>{item.celular} </span>
                                         <button
                                             className="btn btn-danger btn-sm float-right"
                                             onClick={(e) => deleteHandler(item.id)}
@@ -64,33 +62,32 @@ const Usuario = () => {
                                             Eliminar
                                         </button>
                                         <Button
-                                            className="btn btn-warning btn-sm float-right mr-2" 
-                                            onClick={() => handleModal(item.id, item.nombre, item.precio, item.descrip)}
+                                            className="btn btn-warning btn-sm float-right mr-2"
+                                            onClick={() => handleModal(item.id, item.nombre, item.apellido, item.celular)}
                                         >
                                             Editar
                                         </Button>
-
+                                        
                                     </li>
-
                                 ))
                             }
                         </ul>
                     </div>
                     <div className="col-md-6">
-                        <Add />
+                        <AddClient />
                     </div>
                 </div>
             </div>
             <Modal show={show} onHide={handleModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Editar Producto</Modal.Title>
+                    <Modal.Title>Editar Cliente</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Edit Id={id} Nombre={nombre} Precio={precio} Descrip={descrip} />
+                    <EditClient Id={id} Nombre={nombre} Apellido={apellido} Celular={celular} />
                 </Modal.Body>
             </Modal>
         </div>
     )
 }
 
-export default Usuario
+export default Cliente
