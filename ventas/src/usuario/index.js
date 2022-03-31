@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react'
+import Edit from '../edit';
 import ProductDataServices from '../services/productServices'
+import Modal from "react-bootstrap/Modal";
+import Button from 'react-bootstrap/Button';
 
 const Usuario = () => {
 
     const [products, setProducts] = useState([]);
+
+    const [show, setShow] = useState(false);
+
+    const handleModal = () => {
+        setShow(!show);
+    }
 
     useEffect(() => {
         getProducts();
@@ -39,12 +48,13 @@ const Usuario = () => {
                                         >
                                             Eliminar
                                         </button>
-                                        <button
-                                            className="btn btn-warning btn-sm float-right mr-2"
+                                        <Button
+                                            className="btn btn-warning btn-sm float-right mr-2" onClick={handleModal}
                                             /* onClick={(e) => getProductId(item.id)} */
                                         >
                                             Editar
-                                        </button>
+                                        </Button>
+                                        
                                     </li>
                                 ))
                             }
@@ -55,6 +65,22 @@ const Usuario = () => {
                     </div>
                 </div>
             </div>
+            <Modal show={show} onHide={handleModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Editar</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Edit close={handleModal} state={show} xxx={"hola"} />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleModal}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleModal}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }
