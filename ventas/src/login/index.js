@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import './login.css'
 import { auth } from '../firebase-config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import  { Redirect } from 'react-router-dom';
 
 const Login = () => {
 

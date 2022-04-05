@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import './add.css'
 import ProductDataServices from '../services/productServices'
+import Swal from 'sweetalert2'
 
-const Add = () => {
+const Add = ({GetProducts}) => {
 
     const [nombre, setNombre] = useState("");
     const [precio, setPrecio] = useState("");
     const [descrip, setDescrip] = useState("");
+    const [stock, setStock] = useState("");
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -14,19 +16,31 @@ const Add = () => {
         const newProduct = {
             nombre,
             precio,
-            descrip
+            descrip,
+            stock
         }
-        console.log("funcionará???", newProduct);
         try {
-            await ProductDataServices.addProducts(newProduct);
-            window.location = '/usuario';
+            ProductDataServices.addProducts(newProduct)
+            .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se ha guardado correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                  GetProducts();
+                  setNombre("");
+                  setPrecio("");
+                  setDescrip("");
+                  setStock("");
+            })
         } catch (error) {
             console.log(error);
         }
     }
     return (
         <div className='contx'>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <div className="form-group">
                     <h3>Agregar +</h3>
                     <label htmlFor="validation01">Nombre del producto</label>
@@ -61,7 +75,18 @@ const Add = () => {
                         onChange={ (e) => setDescrip(e.target.value) }
                     />
                 </div>
-                <button type="submit" className="btn btn-dark">Guardar</button>
+                <div className="form-group">
+                    <label htmlFor="validation02">Stock</label>
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        id="stock" 
+                        placeholder="Stock" 
+                        value={stock} 
+                        onChange={ (e) => setStock(e.target.value) }
+                    />
+                </div>
+                <button onClick={handleSubmit} type="button" className="btn btn-dark">Guardar</button>
             </form>
         </div>
     )

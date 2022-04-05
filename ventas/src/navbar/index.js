@@ -14,15 +14,15 @@ const Navbar = () => {
         window.location = '/login';
     }
 
-    const producto = async () => {
+    /* const producto = async () => {
         await signOut(auth);
         window.location = '/usuario';
-    }
+    } */
 
-    const cliente = async () => {
+    /* const cliente = async () => {
         await signOut(auth);
         window.location = '/cliente';
-    }
+    } */
 
     !user? console.log("no hay usuario"): console.log("HAY USUARIO");
     return (
@@ -30,7 +30,7 @@ const Navbar = () => {
 
 
         <nav className="navbar mb-3 navbar-expand-lg navbar-dark bg-dark">
-            <a className="navbar-brand" href="#">Mi Tienda</a>
+            <a className="navbar-brand" href="/usuario">Mi Tienda</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -47,6 +47,9 @@ const Navbar = () => {
                     </li>
                     <li className="nav-item bg-dark">
                         <a className="nav-link" href="/cliente">Cliente <span className="sr-only">(current)</span></a>
+                    </li>
+                    <li className="nav-item bg-dark">
+                        <a className="nav-link" href="/ventas">Ventas <span className="sr-only">(current)</span></a>
                     </li>
                     </>
                     }

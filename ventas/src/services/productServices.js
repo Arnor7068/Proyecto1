@@ -23,8 +23,8 @@ class ProductDataService {
     }
 
     getProduct = (id) => {
-        const productDoc = doc(db, "products", id)
-        return getDocs(productDoc);
+        const productDoc = doc(db, "producto", id)
+        return getDoc(productDoc);
     }
 
 }

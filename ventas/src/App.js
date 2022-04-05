@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './navbar';
 import Add from './add';
 import Cliente from './cliente';
+import Ventas from './ventas';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/usuario" element={<Usuario />} />
         <Route path="/add" element={<Add />} />
         <Route path="/cliente" element={<Cliente />} />
+        <Route path="/ventas" element={<Ventas />} />
       </Routes>
       </BrowserRouter>
 
